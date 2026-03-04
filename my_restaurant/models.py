@@ -15,7 +15,7 @@ class Reserva(models.Model):
     data= models.DateField()
     hora= models.TimeField()
     pessoas= models.PositiveIntegerField()
-    observacoes= models.TextField()
+    observacoes= models.TextField(default='Nenhuma')
     
     def __str__(self):
         return self.name

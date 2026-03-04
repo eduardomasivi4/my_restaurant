@@ -234,6 +234,16 @@
     font-weight:bold;
 }
 
+.mensagem{
+    background:#141414;
+    color:#c6a14a;
+    padding:20px;
+    border:1px solid #c6a14a;
+    text-align:center;
+    margin:20px auto;
+    max-width:600px;
+}
+
 /* FOOTER */
 .footer{
     background:#000;
@@ -341,24 +351,25 @@
 <section id="reserva" class="fade">
     <h2 style="font-family:'Playfair Display'; font-weight:300; font-size:40px;">Reservar Mesa</h2>
 
-    <form>
+    <form action="{% url 'home' %}#reserva" method="POST">
+        {% csrf_token %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="mensagem">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
         <input type="text" placeholder="Nome" name="nome" required>
         <input type="email" placeholder="Email" name="email" required>
         <input type="date" name="data" required>
         <input type="time" name="hora" required>
         <input type="number" name="pessoas" placeholder="Nº de Pessoas" required>
-        <textarea placeholder="Observações (alergias, limitações, preferências...)" name="obs"></textarea>
+        <textarea placeholder="Observações (alergias, limitações, preferências...) caso não tenha, pode deixar em branco" name="obs"></textarea>
 
         <button type="submit">Reservar</button>
     </form>
 
-    <div id="popup" class="popup">
-        <div class="popup-content">
-            <h2>Reserva Confirmada</h2>
-            <p>A sua mesa foi reservada com sucesso. Esperamos por si.</p>
-            <button onclick="fecharPopup()">Fechar</button>
-        </div>
-    </div>
 </section>
 
 <footer class="footer">
@@ -409,18 +420,6 @@ window.addEventListener('scroll', () => {
     });
 });
 
-const form = document.querySelector("form");
-const popup = document.getElementById("popup");
-
-form.addEventListener("submit", function(e){
-    e.preventDefault();
-    popup.classList.add("active");
-    form.reset();
-});
-
-function fecharPopup(){
-    popup.classList.remove("active");
-}
 </script>
 
 </body>
