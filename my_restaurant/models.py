@@ -1,9 +1,9 @@
 from django.db import models
 
 class Menu(models.Model):
-    imagem = models.ImageField(upload_to='img')
+    imagem = models.ImageField(upload_to='img', null=True)
     name = models.CharField(max_length=50)
-    descricao = models.TextField()
+    descricao = models.TextField(null=True)
     preco = models.DecimalField(max_digits=5, decimal_places=2)
     
     def __str__(self):
