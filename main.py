@@ -2,23 +2,27 @@ import pyautogui
 import time
 import pandas as pd
 
-toda_tabela = pd.read_csv('menu.csv')
-tabela = toda_tabela[['cuisine', 'price']]
+tabela = pd.read_csv('menu.csv')
 
-print(tabela)
-
-time.sleep(3)
 pyautogui.hotkey('alt', 'tab')
-time.sleep(1)
+time.sleep(2)
 
-pyautogui.hotkey('ctrl','t')
-time.sleep(1)
+# colunas cuisine,price
+for linha in tabela.index:
+    pyautogui.click(x=465,y=323)
+    time.sleep(0.5)
 
-pyautogui.click(539,57)
-time.sleep(1)
+    cuisine = str(tabela.loc[linha, 'cuisine'])
+    pyautogui.write(cuisine)
+    
+    time.sleep(0.5)
+    pyautogui.click(x=373, y=569)
 
-pyautogui.write('127.0.0.1:8000/admin/')
+    time.sleep(0.5)
+    price = str(tabela.loc[linha, 'price'])
+    pyautogui.write(price)
+    
+    pyautogui.click(x=287, y=652)
 
-time.sleep(1)
-
-pyautogui.press('enter')
+    if linha == 14:
+        break

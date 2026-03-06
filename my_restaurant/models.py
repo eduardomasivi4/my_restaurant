@@ -1,13 +1,12 @@
 from django.db import models
 
 class Menu(models.Model):
-    imagem = models.ImageField(upload_to='img', null=True)
-    name = models.CharField(max_length=50)
-    descricao = models.TextField(null=True)
+    nome = models.CharField(max_length=50)
+    descricao = models.TextField(default='Nenhuma')
     preco = models.DecimalField(max_digits=5, decimal_places=2)
     
     def __str__(self):
-        return self.nome
+        return f'Prato: {self.nome}, preco: {self.preco}'
 
 class Reserva(models.Model):
     name= models.CharField(max_length=50)
